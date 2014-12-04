@@ -23,7 +23,7 @@ public class ChatbotPanel extends JPanel
 /**
  * creates the buttons that the program will use
  */
-	private JButton sampleButton, randomButton, btnEnter, btnMeme;
+	private JButton sampleButton, randomButton, btnEnter;
 /**
  * creates the text field the user can type in
  */
@@ -67,13 +67,13 @@ public class ChatbotPanel extends JPanel
 
 		randomKnowledge = new ArrayList<String>();
 		baseLayout = new SpringLayout();
-		btnMeme = new JButton("Meme");
 		lblBeta = new JLabel("beta 1.2.7");
 		lblCrapBot = new JLabel("Crap Bot");
 		lblNumberOfChats = new JLabel("Number Of Times Enter Was Pushed:");
 		baseLayout.putConstraint(SpringLayout.NORTH, lblNumberOfChats, 0, SpringLayout.NORTH, lblBeta);
 		baseLayout.putConstraint(SpringLayout.WEST, lblNumberOfChats, 10, SpringLayout.WEST, this);
 		btnEnter = new JButton("Enter");
+		baseLayout.putConstraint(SpringLayout.WEST, btnEnter, 150, SpringLayout.WEST, this);
 		numberOfEntered = 0;
 
 		setupPanel();
@@ -123,7 +123,6 @@ public class ChatbotPanel extends JPanel
 		this.add(sampleField);
 		this.add(lblBeta);
 		this.add(btnEnter);
-		this.add(btnMeme);
 		this.add(lblNumberOfChats);
 		this.add(lblCrapBot);
 		
@@ -145,9 +144,6 @@ public class ChatbotPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.SOUTH, sampleField, -11, SpringLayout.NORTH, sampleButton);
 		baseLayout.putConstraint(SpringLayout.EAST, sampleField, 0, SpringLayout.EAST, randomButton);
 		baseLayout.putConstraint(SpringLayout.NORTH, chatPane, 75, SpringLayout.NORTH, this);
-
-		baseLayout.putConstraint(SpringLayout.NORTH, btnMeme, 0, SpringLayout.NORTH, sampleButton);
-		baseLayout.putConstraint(SpringLayout.EAST, btnMeme, -29, SpringLayout.WEST, randomButton);
 		
 		
 		
@@ -166,7 +162,6 @@ public class ChatbotPanel extends JPanel
 		
 		
 		baseLayout.putConstraint(SpringLayout.SOUTH, btnEnter, -6, SpringLayout.NORTH, sampleField);
-		baseLayout.putConstraint(SpringLayout.EAST, btnEnter, -1, SpringLayout.EAST, btnMeme);
 		
 
 	}

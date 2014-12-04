@@ -167,10 +167,18 @@ public class ChatBot
 				}
 				else if(numberOfChats == 1)
 				{
-					int age = Integer.parseInt(userText);
+					if(userText.contains("0") || userText.contains("1") || userText.contains("2") || userText.contains("3") || userText.contains("4") || userText.contains("5") || userText.contains("6") || userText.contains("7") || userText.contains("8") || userText.contains("9"))
+					{
+					int age = Integer.parseInt(userText.replaceAll("[\\D]", ""));
 					myUser.setAgeNumber(age);
 					processedText = "Man, you are " +myUser.getAgeNumber() + " years old? That is really old for someone named " +myUser.getUserName()+ ".";
 					processedText += "\nWhat is your favorite Animal?";
+					}
+					else
+					{
+						processedText = "Please put in your age";
+						numberOfChats--;
+					}
 				}
 				else if(numberOfChats == 2)
 				{

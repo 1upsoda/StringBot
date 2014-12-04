@@ -65,9 +65,6 @@ public class StringAppController
 	public void start()
 
 	{
-
-		
-
 		ChatbotPanel myAppPanel = (ChatbotPanel) baseFrame.getContentPane();
 		myAppPanel.displayTextToUser(startMessage);
 		
