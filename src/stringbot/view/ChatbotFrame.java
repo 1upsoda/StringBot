@@ -15,7 +15,10 @@ public class ChatbotFrame extends JFrame
 {
 
 	private ChatbotPanel basePanel;
-
+/**
+ * puts the panel in the frame for th GUI
+ * @param baseController
+ */
 	public ChatbotFrame(StringAppController baseController)
 
 	{
@@ -26,7 +29,9 @@ public class ChatbotFrame extends JFrame
 		setupFrame();
 
 	}
-
+/**
+ * builds the frame of the window that holds the gui panel
+ */
 	private void setupFrame()
 
 	{

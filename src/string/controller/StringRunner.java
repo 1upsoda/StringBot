@@ -8,12 +8,11 @@ public class StringRunner
 
 {
 
-	public StringRunner()
-
-	{
-
-	}
-
+	
+/**
+ * starts the program 
+ * @param args
+ */
 	public static void main(String args[])
 
 	{

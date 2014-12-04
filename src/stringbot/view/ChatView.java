@@ -11,7 +11,10 @@ public class ChatView
 {
 
 	private StringAppController baseController;
-
+/**
+ * connects this page with all others
+ * @param baseController
+ */
 	public ChatView(StringAppController baseController)
 
 	{
@@ -19,7 +22,11 @@ public class ChatView
 		this.baseController = baseController;
 
 	}
-
+/**
+ * allows the history of the chatbot to be seen
+ * @param input
+ * @return
+ */
 	public String displayChatbotConversations(String input)
 
 	{
@@ -31,7 +38,10 @@ public class ChatView
 		return output;
 
 	}
-
+/**
+ * allows the user input to be seen
+ * @param input
+ */
 	public void displayInformation(String input)
 
 	{

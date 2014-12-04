@@ -7,25 +7,48 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import stringbot.model.ChatBot;
 import string.controller.StringAppController;
+
 import java.awt.Font;
 
 public class ChatbotPanel extends JPanel
 
 {
-
+	private int numberOfEntered;
+/**
+ * implements the controller so it can run
+ */
 	private StringAppController baseController;
-
+/**
+ * creates the buttons that the program will use
+ */
 	private JButton sampleButton, randomButton, btnEnter, btnMeme;
-
+/**
+ * creates the text field the user can type in
+ */
 	private JTextField sampleField;
-
-	
+	private ArrayList<String> randomKnowledge;
+/**
+ * creates the area the user can chat in	
+ */
 	private JTextArea chatArea;
+/**
+ * creates a pane for the previous chats to inhabit
+ */
 	private JScrollPane chatPane;
+/**
+ * creates the way everything will behave in the frame
+ */
 	private SpringLayout baseLayout;
+/**	 
+ * creates the 3 labels on the layout
+ */
 	private JLabel lblCrapBot, lblBeta, lblNumberOfChats;
-
+/**
+ * creates the button, label, chat box objects
+ * @param baseController
+ */
 	public ChatbotPanel(StringAppController baseController)
 
 	{
@@ -42,12 +65,16 @@ public class ChatbotPanel extends JPanel
 		chatArea = new JTextArea(5, 25);
 		chatPane = new JScrollPane(chatArea);
 
+		randomKnowledge = new ArrayList<String>();
 		baseLayout = new SpringLayout();
 		btnMeme = new JButton("Meme");
 		lblBeta = new JLabel("beta 1.2.7");
 		lblCrapBot = new JLabel("Crap Bot");
-		lblNumberOfChats = new JLabel("Number Of Chats: 0");
+		lblNumberOfChats = new JLabel("Number Of Times Enter Was Pushed:");
+		baseLayout.putConstraint(SpringLayout.NORTH, lblNumberOfChats, 0, SpringLayout.NORTH, lblBeta);
+		baseLayout.putConstraint(SpringLayout.WEST, lblNumberOfChats, 10, SpringLayout.WEST, this);
 		btnEnter = new JButton("Enter");
+		numberOfEntered = 0;
 
 		setupPanel();
 
@@ -55,15 +82,32 @@ public class ChatbotPanel extends JPanel
 
 		setupListeners();
 		setupScrollPane();
+		fillTheKnowledgeList();
 
 	}
-
+	
+	private void fillTheKnowledgeList()
+	{
+		randomKnowledge.add("Knowing ledges will keep you from falling");
+		randomKnowledge.add("You can always eat sausage...");
+		randomKnowledge.add("It is not illegal if the world no longer exists");
+		randomKnowledge.add("Always bathe");
+		randomKnowledge.add("1upsoda is delicious");
+		randomKnowledge.add("All your thoughts are belong to quantum");
+		randomKnowledge.add("You have taken 1 damage from this quote");
+	}
+/**
+ * sets the parameters for how the chat pane will work
+ */
 	private void setupScrollPane()
 	{
 		chatArea.setLineWrap(true);
 		chatArea.setWrapStyleWord(true);
+		chatArea.setEditable(false);
 	}
-
+/**
+ * adds all of the buttons, labels, chat boxes to the panel to be used
+ */
 	private void setupPanel()
 
 	{
@@ -86,7 +130,9 @@ public class ChatbotPanel extends JPanel
 
 		
 	}
-
+/**
+ * puts all of the buttons, chat boxes, labels, everything from the GUI in the right places
+ */
 	private void setupLayout()
 
 	{
@@ -119,17 +165,14 @@ public class ChatbotPanel extends JPanel
 		
 		
 		
-		baseLayout.putConstraint(SpringLayout.WEST, lblNumberOfChats, 10, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.SOUTH, lblNumberOfChats, 0, SpringLayout.SOUTH, lblBeta);
-		
-		
-		
 		baseLayout.putConstraint(SpringLayout.SOUTH, btnEnter, -6, SpringLayout.NORTH, sampleField);
 		baseLayout.putConstraint(SpringLayout.EAST, btnEnter, -1, SpringLayout.EAST, btnMeme);
 		
 
 	}
-
+/**
+ * sets up all of the buttons so that when they are pressed, they actually do stuff
+ */
 	private void setupListeners()
 
 	{
@@ -153,6 +196,9 @@ public class ChatbotPanel extends JPanel
 				displayTextToUser(userTypedText);
 				displayTextToUser(chatbotResponse);
 				sampleField.setText("");
+				numberOfEntered++;
+				lblNumberOfChats.setText("Number Of Times Enter Was Pushed: " +numberOfEntered);
+				
 			}
 		});
 		
@@ -161,9 +207,12 @@ public class ChatbotPanel extends JPanel
 			public void actionPerformed(ActionEvent click)
 			{
 
+				int randomKnow = (int) (Math.random() * 7);
+				sampleField.setText(sampleField.getText() + randomKnowledge.get(randomKnow));
+				
 			}
 		});
-
+		
 	}
 	
 	public void displayTextToUser(String input)
