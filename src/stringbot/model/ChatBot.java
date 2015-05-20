@@ -1,8 +1,14 @@
 package stringbot.model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import java.util.Iterator;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+import string.controller.StringAppController;
 
 /**
  * Model for the bot
@@ -117,6 +123,7 @@ public class ChatBot
 		memeList.add("Falcon Punch");
 
 		memeList.add("How do I shot web?");
+		
 
 	}
 /**
@@ -139,6 +146,18 @@ public class ChatBot
 		ponyList.add("Rarity");
 
 	}
+	/**
+	 * reads the text from a file on the hard drive. returns as a string
+	 * @return the contents of the file
+	 */
+	
+	
+	
+	
+	
+	
+	
+	
 /**
  * after the info from the user is gathered from the first 10 chats, it offers up random topics to converse about.
  * @param userText
@@ -154,7 +173,7 @@ public class ChatBot
 
 		int randomChoice = (int) (Math.random() * 7);
 
-		if (userText != null && userText.length() > 0)
+		if ((userText != null && userText.length() > 0) && (userText != "don't continue" || userText != "Don't Continue" || userText != "dont continue" || userText != "Dont continue") )
 		{
 			if(numberOfChats < 4)
 			{
@@ -218,7 +237,7 @@ public class ChatBot
 
 				{
 
-					int randomPony = (int) (Math.random() * 6D);
+					int randomPony = (int) (Math.random() * ponyList.size());
 
 					processedText = (String) ponyList.get(randomPony);
 
@@ -276,7 +295,7 @@ public class ChatBot
 
 				{
 
-					int randomMeme = (int) (Math.random() * 6);
+					int randomMeme = (int) (Math.random() * memeList.size());
 
 					processedText = (String) memeList.get(randomMeme);
 
@@ -320,6 +339,7 @@ public class ChatBot
 				}
 			}
 		}
+		
 		else
 		{
 			numberOfChats--;
@@ -424,7 +444,7 @@ public class ChatBot
 
 		boolean isAMeme = false;
 
-		for (Iterator iterator = memeList.iterator(); iterator.hasNext();)
+		for (Iterator<String> iterator = memeList.iterator(); iterator.hasNext();)
 
 		{
 

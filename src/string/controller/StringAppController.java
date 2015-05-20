@@ -1,5 +1,15 @@
 package string.controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
 import stringbot.model.ChatBot;
 import stringbot.view.ChatView;
 import stringbot.view.ChatbotFrame;
@@ -11,7 +21,7 @@ public class StringAppController
 /**
  * starts up the frame and view for the chatbot.
  */
-	private ChatView appView;
+	private static ChatView appView;
 	private ChatBot notSoCleverBot;
 	private String startMessage;
 	private ChatbotFrame baseFrame;
@@ -43,9 +53,9 @@ public class StringAppController
 
 		baseFrame = new ChatbotFrame(this);
 
-		notSoCleverBot = new ChatBot("Mr. Not at all Clever:");
+		notSoCleverBot = new ChatBot("Mr. Not at all Clever");
 
-		startMessage = "Welcome to the " + notSoCleverBot.getName() + " chatbot, type in your name.";
+		startMessage = "Welcome to the " + notSoCleverBot.getName() + ": le chatbot, type in your name.";
 
 	}
 /**
@@ -70,6 +80,76 @@ public class StringAppController
 		
 	}
 	
+	public String readTextFromFile()
+	{
+		String fileText = "";
+		String filePath = "C:/Users/tpar4829/Documents/";
+		String fileName = filePath + "saved text.txt";
+		File inputFile = new File(fileName);
+		
+		try
+		{
+			Scanner fileScanner = new Scanner(inputFile);
+			
+			while(fileScanner.hasNext())
+			{
+				fileText += fileScanner.next() + "\n";
+			}
+			
+			fileScanner.close();
+		}
+		catch(FileNotFoundException fileException)
+		{
+			JOptionPane.showMessageDialog(baseFrame, "The file is not here");
+		}
+		
+		return fileText;
+	}
+	
+	public void saveText(String conversation, boolean appendToEnd)
+	{
+		String fileName = "/Users/tpar4829/Documents/saved text.txt";
+		
+		PrintWriter outputWriter;
+		
+		if(appendToEnd)
+		{
+			try
+			{
+				outputWriter = new PrintWriter(new BufferedWriter(new FileWriter(fileName, appendToEnd)));
+				outputWriter.append(conversation);
+				outputWriter.close();
+			}
+			catch(FileNotFoundException noExistingFile)
+			{
+				JOptionPane.showMessageDialog(baseFrame, "There is no file there");
+				JOptionPane.showMessageDialog(baseFrame, noExistingFile.getMessage());
+			}
+			catch(IOException inputOutputError)
+			{
+				JOptionPane.showMessageDialog(baseFrame, "There is no file there");
+				JOptionPane.showMessageDialog(baseFrame, inputOutputError.getMessage());
+			}
+			
+		}
+		else
+		{
+			try
+			{
+				outputWriter = new PrintWriter(fileName);
+				outputWriter.println(conversation);
+				outputWriter.close();
+			}
+			catch(FileNotFoundException noFileIsThere)
+			{
+				JOptionPane.showMessageDialog(baseFrame, "Thereis no file there");
+			}
+		}
+	}
+	
+	
+	
+	
 /**	
  * sets up the text that the user inputs
  * @param userInput the actual text from an input zone
@@ -86,7 +166,7 @@ public class StringAppController
 /**
  * when called, will display 1 of 3 random messages and then will close the program (un-used)
  */
-	private void quit()
+	public static void quit()
 
 	{
 

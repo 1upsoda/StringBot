@@ -1,9 +1,10 @@
 package stringbot.view;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 
 import javax.swing.*;
 
@@ -23,7 +24,7 @@ public class ChatbotPanel extends JPanel
 /**
  * creates the buttons that the program will use
  */
-	private JButton sampleButton, randomButton, btnEnter;
+	private JButton sampleButton, randomButton, btnEnter, saveButton, loadButton;
 /**
  * creates the text field the user can type in
  */
@@ -57,6 +58,8 @@ public class ChatbotPanel extends JPanel
 
 		sampleButton = new JButton(":0 omg");
 
+		saveButton = new JButton("Save stuff");
+		loadButton = new JButton("Load Stuff");
 		randomButton = new JButton("Random");
 		randomButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		randomButton.setForeground(Color.WHITE);
@@ -67,6 +70,10 @@ public class ChatbotPanel extends JPanel
 
 		randomKnowledge = new ArrayList<String>();
 		baseLayout = new SpringLayout();
+		baseLayout.putConstraint(SpringLayout.NORTH, saveButton, 6, SpringLayout.SOUTH, sampleButton);
+		baseLayout.putConstraint(SpringLayout.WEST, saveButton, 0, SpringLayout.WEST, sampleButton);
+		baseLayout.putConstraint(SpringLayout.NORTH, loadButton, 6, SpringLayout.SOUTH, randomButton);
+		baseLayout.putConstraint(SpringLayout.WEST, loadButton, 0, SpringLayout.WEST, randomButton);
 		lblBeta = new JLabel("beta 1.2.7");
 		lblCrapBot = new JLabel("Crap Bot");
 		lblNumberOfChats = new JLabel("Number Of Times Enter Was Pushed:");
@@ -125,6 +132,8 @@ public class ChatbotPanel extends JPanel
 		this.add(btnEnter);
 		this.add(lblNumberOfChats);
 		this.add(lblCrapBot);
+		this.add(loadButton);
+		this.add(saveButton);
 		
 
 		
@@ -165,6 +174,10 @@ public class ChatbotPanel extends JPanel
 		
 
 	}
+	
+
+	
+	
 /**
  * sets up all of the buttons so that when they are pressed, they actually do stuff
  */
@@ -202,12 +215,38 @@ public class ChatbotPanel extends JPanel
 			public void actionPerformed(ActionEvent click)
 			{
 
-				int randomKnow = (int) (Math.random() * 7);
+				int randomKnow = (int) (Math.random() * randomKnowledge.size());
 				sampleField.setText(sampleField.getText() + randomKnowledge.get(randomKnow));
 				
 			}
 		});
+		saveButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String chat = chatArea.getText();
+				baseController.saveText(chat, false);
+			}
+		});
 		
+		loadButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				String savedChat = baseController.readTextFromFile();
+				if(savedChat.length()<1)
+				{
+					chatArea.setText("no text in file");
+				}
+				else
+				{
+					chatArea.setText(savedChat);
+				}
+				
+			}
+		});
+
+
 	}
 	
 	public void displayTextToUser(String input)
